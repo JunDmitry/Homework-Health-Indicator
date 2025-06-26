@@ -15,7 +15,7 @@ public class SmoothlyHealthIndicator : HealthIndicator, IHealthChangeHandler
         private set
         {
             _current = value;
-            CurrentHealthChanged?.Invoke(_current);
+            CurrentChanged?.Invoke(_current);
         }
     }
 
@@ -25,13 +25,13 @@ public class SmoothlyHealthIndicator : HealthIndicator, IHealthChangeHandler
         private set
         {
             _max = value;
-            MaxHealthChanged?.Invoke(_max);
+            MaxChanged?.Invoke(_max);
         }
     }
 
-    public event Action<float> CurrentHealthChanged;
+    public event Action<float> CurrentChanged;
 
-    public event Action<float> MaxHealthChanged;
+    public event Action<float> MaxChanged;
 
     private Coroutine _coroutine;
 

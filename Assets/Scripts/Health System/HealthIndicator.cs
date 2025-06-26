@@ -25,14 +25,14 @@ public abstract class HealthIndicator : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        _healthChangeHandler.CurrentHealthChanged += OnCurrentHealthChanged;
-        _healthChangeHandler.MaxHealthChanged += OnMaxHealthChanged;
+        _healthChangeHandler.CurrentChanged += OnCurrentHealthChanged;
+        _healthChangeHandler.MaxChanged += OnMaxHealthChanged;
     }
 
     protected virtual void OnDisable()
     {
-        _healthChangeHandler.CurrentHealthChanged -= OnCurrentHealthChanged;
-        _healthChangeHandler.MaxHealthChanged -= OnMaxHealthChanged;
+        _healthChangeHandler.CurrentChanged -= OnCurrentHealthChanged;
+        _healthChangeHandler.MaxChanged -= OnMaxHealthChanged;
     }
 
     protected abstract void OnCurrentHealthChanged(float value);

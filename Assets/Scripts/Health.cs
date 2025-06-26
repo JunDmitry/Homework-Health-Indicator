@@ -5,9 +5,9 @@ public class Health : MonoBehaviour, IHealthChangeHandler
 {
     [SerializeField, Min(1f)] private float _max = 1f;
 
-    public event Action<float> CurrentHealthChanged;
+    public event Action<float> CurrentChanged;
 
-    public event Action<float> MaxHealthChanged;
+    public event Action<float> MaxChanged;
 
     public float Current { get; private set; }
 
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour, IHealthChangeHandler
     public void Reset()
     {
         Current = _max;
-        CurrentHealthChanged?.Invoke(Current);
+        CurrentChanged?.Invoke(Current);
     }
 
     public void TakeDamage(float damage)
@@ -30,7 +30,7 @@ public class Health : MonoBehaviour, IHealthChangeHandler
             throw new ArgumentException("Damage cannot be less than 0!", nameof(damage));
 
         Current = Math.Max(Current - damage, 0);
-        CurrentHealthChanged?.Invoke(Current);
+        CurrentChanged?.Invoke(Current);
     }
 
     public void Replenish(float count)
@@ -39,6 +39,6 @@ public class Health : MonoBehaviour, IHealthChangeHandler
             throw new ArgumentException("Replenish health count cannot be less than 0!", nameof(count));
 
         Current = Math.Min(Current + count, _max);
-        CurrentHealthChanged?.Invoke(Current);
+        CurrentChanged?.Invoke(Current);
     }
 }
