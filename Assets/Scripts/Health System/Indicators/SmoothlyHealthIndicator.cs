@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class SmoothlyHealthIndicator : HealthIndicator, IHealthChangeHandler
+public class SmoothlyHealthIndicator : SliderHealthIndicator
 {
     [SerializeField, Min(0)] private float _smoothDuration = 0.25f;
 
     private float _current;
     private float _max;
+
+    private Coroutine _coroutine;
 
     public float Current
     {
@@ -15,7 +17,7 @@ public class SmoothlyHealthIndicator : HealthIndicator, IHealthChangeHandler
         private set
         {
             _current = value;
-            CurrentChanged?.Invoke(_current);
+            base.OnCurrentHealthChanged(value);
         }
     }
 
@@ -25,20 +27,14 @@ public class SmoothlyHealthIndicator : HealthIndicator, IHealthChangeHandler
         private set
         {
             _max = value;
-            MaxChanged?.Invoke(_max);
+            base.OnMaxHealthChanged(value);
         }
     }
 
-    public event Action<float> CurrentChanged;
-
-    public event Action<float> MaxChanged;
-
-    private Coroutine _coroutine;
-
     private void Start()
     {
-        Current = CurrentHealth;
-        Max = MaxHealth;
+        _current = CurrentHealth;
+        _max = MaxHealth;
     }
 
     protected override void OnCurrentHealthChanged(float value)
