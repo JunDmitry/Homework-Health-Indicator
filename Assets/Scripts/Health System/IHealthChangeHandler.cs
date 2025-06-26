@@ -2,9 +2,9 @@ using System;
 
 public interface IHealthChangeHandler
 {
-    event Action<float> CurrentHealthChanged;
+    event Action<float> CurrentChanged;
 
-    event Action<float> MaxHealthChanged;
+    event Action<float> MaxChanged;
 
     float Current { get; }
     float Max { get; }
