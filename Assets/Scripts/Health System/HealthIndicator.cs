@@ -2,37 +2,21 @@ using UnityEngine;
 
 public abstract class HealthIndicator : MonoBehaviour
 {
-    [SerializeField] private GameObject _healthHandler;
+    [SerializeField] private Health _health;
 
-    private IHealthChangeHandler _healthChangeHandler;
-
-    private void Awake()
-    {
-        _healthChangeHandler = _healthHandler.GetComponent<IHealthChangeHandler>();
-    }
-
-    private void OnValidate()
-    {
-        if (_healthHandler != null && _healthHandler.TryGetComponent<IHealthChangeHandler>(out _) == false)
-        {
-            Debug.LogWarning($"{_healthHandler.name} don't contains Component that implement interface {nameof(IHealthChangeHandler)}!");
-            _healthHandler = null;
-        }
-    }
-
-    protected float CurrentHealth => _healthChangeHandler.Current;
-    protected float MaxHealth => _healthChangeHandler.Max;
+    protected float CurrentHealth => _health.Current;
+    protected float MaxHealth => _health.Max;
 
     protected virtual void OnEnable()
     {
-        _healthChangeHandler.CurrentChanged += OnCurrentHealthChanged;
-        _healthChangeHandler.MaxChanged += OnMaxHealthChanged;
+        _health.CurrentChanged += OnCurrentHealthChanged;
+        _health.MaxChanged += OnMaxHealthChanged;
     }
 
     protected virtual void OnDisable()
     {
-        _healthChangeHandler.CurrentChanged -= OnCurrentHealthChanged;
-        _healthChangeHandler.MaxChanged -= OnMaxHealthChanged;
+        _health.CurrentChanged -= OnCurrentHealthChanged;
+        _health.MaxChanged -= OnMaxHealthChanged;
     }
 
     protected abstract void OnCurrentHealthChanged(float value);

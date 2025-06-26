@@ -7,7 +7,6 @@ public abstract class ButtonClickEvent : MonoBehaviour
     [SerializeField] protected Health Health;
     [SerializeField] protected Button Button;
     [SerializeField] protected TMP_InputField InputField;
-    [SerializeField] protected float Value;
 
     private void OnEnable()
     {
@@ -23,8 +22,5 @@ public abstract class ButtonClickEvent : MonoBehaviour
 
     protected abstract void Execute();
 
-    protected virtual void ChangeValue(string rawDamage)
-    {
-        Value = float.Parse(rawDamage);
-    }
+    protected abstract void ChangeValue(string rawDamage);
 }
